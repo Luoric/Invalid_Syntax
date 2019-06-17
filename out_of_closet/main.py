@@ -59,8 +59,14 @@ class ShowMemeHandler(webapp2.RequestHandler):
         self.response.write(results_template.render(dic))
         user.put()
 
+class ComingSoon(webapp2.RequestHandler):
+    def get(self):  # for a get request
+        welcome_template = the_jinja_env.get_template('templates/comingSoon.html')
+        self.response.write(welcome_template.render())
+
 app = webapp2.WSGIApplication([
     ('/', EnterInfoHandler),
     ('/memeresult', ShowMemeHandler),
-    ('/library', ShowLibrary)
+    ('/library', ShowLibrary),
+    ('/comingsoon', ComingSoon),
 ], debug=True)
