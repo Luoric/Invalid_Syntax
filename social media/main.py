@@ -45,37 +45,35 @@ class MapHandler(webapp2.RequestHandler):
         self.response.write('<html><body><img src=' + url + '></body></html>')
 
     def post(self):
-        api_key = "AIzaSyBOrP8QroOlqPw0bdOFjhXnEKB0ITXRX4o"
-        map_place = self.request.get("map_name")
-        url = "https://maps.googleapis.com/maps/api/staticmap?center=" + map_place +"&size=600x300&key=" + api_key
+        username = self.request.get("map_name")
+        r = requests.post(
+            'https://stevesie.com/cloud/api/v1/endpoints/3cd58c09-c547-481e-a011-180097f61f49/executions',
+            headers={
+                'Token': '04e4dc3c-481c-462f-875d-4e8202874ec7',
+            },
+            json={
+                'inputs': {
+                    'session_id': '2229053416%3AERftJLIFsesnIt%3A5',
+                    'username': username,
+                    'max_id': '',
+                },
+                'proxy': {
+                  'type': 'shared',
+                  'location': 'nyc3',
+                }
+            },
+        )
+
+        response_json = r.json()
+        img_url = response_json['object']['response']['response_text']
+        img_url = str(img_url)
+        json_acceptable_string = img_url.replace('''"''', "\"")
+        url = json.loads(json_acceptable_string)
+        url = url['items'][0]['image_versions2']['candidates'][0]['url']
+        print(url)
+        print(type(url))
         self.response.write('<html><body><img src=' + url + '></body></html>')
 
-r = requests.post(
-    'https://stevesie.com/cloud/api/v1/endpoints/3cd58c09-c547-481e-a011-180097f61f49/executions',
-    headers={
-        'Token': '04e4dc3c-481c-462f-875d-4e8202874ec7',
-    },
-    json={
-        'inputs': {
-            'session_id': '2229053416%3AERftJLIFsesnIt%3A5',
-            'username': 'ferrari',
-            'max_id': '',
-        },
-        'proxy': {
-          'type': 'shared',
-          'location': 'nyc3',
-        }
-    },
-)
-
-response_json = r.json()
-img_url = response_json['object']['response']['response_text']
-img_url = str(img_url)
-json_acceptable_string = img_url.replace('''"''', "\"")
-url = json.loads(json_acceptable_string)
-url = url['items'][0]['image_versions2']['candidates'][0]['url']
-print(url)
-print(type(url))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),

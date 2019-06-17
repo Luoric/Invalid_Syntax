@@ -8,11 +8,11 @@
   </head>
   <body id ="welcome">
     <div id='title'>
-    <h1>GET OUT OF THE CLOSET</h1>
+    <span id = 'color1'>G</span><span id = 'color2'>E</span><span id = 'color3'>T </span><span id = 'color4'>O</span><span id = 'color5'>U</span><span id = 'color6'>T </span><span id = 'color1'>O</span><span id = 'color2'>F </span><span id = 'color3'>T</span><span id = 'color4'>H</span><span id = 'color5'>E </span><span id = 'color6'>C</span><span id = 'color1'>L</span><span id = 'color2'>O</span><span id = 'color3'>S</span><span id = 'color4'>E</span><span id = 'color5'>T</span>
     <div class="sidenav">
-      <a href="#">About</a>
-      <a href="#">Stories</a>
-      <a href="#">Connect</a>
+      <a id = "sidenav1" href="#">About</a>
+      <a id = "sidenav2" href="#">Stories</a>
+      <a id = "sidenav3" href="#">Connect</a>
     </div>
   </div>
   <div id="why" class= "main">
@@ -37,22 +37,13 @@
   </div>
   <div class = 'main'>
     <img height= 10% width = 10% src="http://weartheribbon.org/wp-content/uploads/2017/08/big-ribbon.png" alt="a-chewing-alpaca">
-    <h2>GET OUT OF THE CLOSET</h2>
-    <form method="post" action="/memeresult">
-      Name:<br>
-      <input type="text" name="userName" value="">
-      <br>
-      Story:<br>
-      <input type="text" name="userStory" id = "story" value="">
-      <br>
-      Date :<br>
-      <input type="date" name="date" value="" id = "datePicker">
-      <br>
-      <br>
-      <div id = "gay">
-      <button type="submit" id = "button"><p = 'words'>GET OUT OF THE CLOSET NOW</p></button>
+    <div class="form-style-6">
+      <h1><span id = 'color1'>G</span><span id = 'color2'>E</span><span id = 'color3'>T </span><span id = 'color4'>O</span><span id = 'color5'>U</span><span id = 'color6'>T </span><span id = 'color1'>O</span><span id = 'color2'>F </span><span id = 'color3'>T</span><span id = 'color4'>H</span><span id = 'color5'>E </span><span id = 'color6'>C</span><span id = 'color1'>L</span><span id = 'color2'>O</span><span id = 'color3'>S</span><span id = 'color4'>E</span><span id = 'color5'>T</span></h1>
+      <form method="post" class = 'style6' action="/memeresult">
+        <input type="text" name="userName" placeholder="Your Name" />
+        <textarea name="userStory" placeholder="Type your Story"></textarea>
+        <input type="submit" value="GET OUT OF THE CLOSET NOW" />
+      </form>
     </div>
-  </div>
-    </form>
   </body>
 </html>

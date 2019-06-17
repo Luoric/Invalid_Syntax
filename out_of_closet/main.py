@@ -43,8 +43,8 @@ class ShowMemeHandler(webapp2.RequestHandler):
         results_template = the_jinja_env.get_template('templates/results.html')
         meme_line1 = self.request.get("userName")
         meme_line2 = self.request.get("userStory")
-        meme_date = datetime.strptime(self.request.get("date"), "%Y-%m-%d")
-        meme_date = str(meme_date)[:10]
+        meme_date = strftime("%Y-%m-%d %H:%M:%S", localtime())
+        meme_date = str(meme_date)
 
         user = meme_model.User(
         user_name = meme_line1,
