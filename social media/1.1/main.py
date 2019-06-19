@@ -37,6 +37,10 @@ class ResultHandler(webapp2.RequestHandler):
         result_template = the_jinja_env.get_template('templates/results.html')
         self.response.write(result_template.render(template_var))
 
+    def get(self):
+        result_template = the_jinja_env.get_template('templates/results.html')
+        self.response.write(result_template.render())
+
 class MapHandler(webapp2.RequestHandler):
     def get(self):
         api_key = "AIzaSyBOrP8QroOlqPw0bdOFjhXnEKB0ITXRX4o"
