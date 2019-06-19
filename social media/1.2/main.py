@@ -52,8 +52,10 @@ class MapHandler(webapp2.RequestHandler):
             #tso = TwitterSearchOrder() # create a TwitterSearchOrder object
             #tso.set_keywords(['Taylor']) # let's define all words we would like to have a look for
             #tso.set_language('en') # we want to see German tweets only
+
             #tso.set_include_entities(False) # and don't give us all those entity information
-            tuo = TwitterUserOrder('elonmusk') # create a TwitterUserOrder
+            name = self.request.get("map_name")
+            tuo = TwitterUserOrder(name) # create a TwitterUserOrder
         # it's about time to create a TwitterSearch object with our secret tokens
             ts = TwitterSearch(
                 consumer_key = 'dKu6bH3B6kzjjQx8SQOZix1zm',
@@ -74,13 +76,41 @@ class MapHandler(webapp2.RequestHandler):
                     if i == 0:
                         break
                     print(i)
+            r = requests.post(
+                'https://stevesie.com/cloud/api/v1/endpoints/3cd58c09-c547-481e-a011-180097f61f49/executions',
+                headers={
+                    'Token': '04e4dc3c-481c-462f-875d-4e8202874ec7',
+                },
+                json={
+                    'inputs': {
+                        'session_id': '2229053416%3AERftJLIFsesnIt%3A5',
+                        'username': name,
+                        'max_id': '',
+                    },
+                    'proxy': {
+                      'type': 'shared',
+                      'location': 'nyc3',
+                    }
+                },
+            )
+
+            response_json = r.json()
+            img_url = response_json['object']['response']['response_text']
+            img_url = str(img_url)
+            json_acceptable_string = img_url.replace('''"''', "\"")
+            url = json.loads(json_acceptable_string)
+            url = url['items'][0]['image_versions2']['candidates'][0]['url']
+
             template_var  = {
-                'tsts': tsts
+                'tsts': tsts,
+                'url' : url
             }
+
             result_template = the_jinja_env.get_template('templates/results2.html')
             self.response.write(result_template.render(template_var))
         except TwitterSearchException as e: # take care of all those ugly errors if there are some
             print(e)
+
 
 
 

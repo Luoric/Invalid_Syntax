@@ -43,7 +43,7 @@ class ShowMemeHandler(webapp2.RequestHandler):
         results_template = the_jinja_env.get_template('templates/results.html')
         meme_line1 = self.request.get("userName")
         meme_line2 = self.request.get("userStory")
-        meme_date = strftime("%Y-%m-%d %H:%M:%S", localtime())
+        meme_date = strftime("%a, %d %b %Y", localtime())
         meme_date = str(meme_date)
 
         user = meme_model.User(
@@ -64,9 +64,15 @@ class ComingSoon(webapp2.RequestHandler):
         welcome_template = the_jinja_env.get_template('templates/comingSoon.html')
         self.response.write(welcome_template.render())
 
+class About(webapp2.RequestHandler):
+    def get(self):  # for a get request
+        welcome_template = the_jinja_env.get_template('templates/about.html')
+        self.response.write(welcome_template.render())
+
 app = webapp2.WSGIApplication([
     ('/', EnterInfoHandler),
     ('/memeresult', ShowMemeHandler),
     ('/library', ShowLibrary),
     ('/comingsoon', ComingSoon),
+    ('/about', About)
 ], debug=True)
