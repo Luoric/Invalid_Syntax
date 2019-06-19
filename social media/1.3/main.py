@@ -6,9 +6,10 @@ import os
 import requests
 import ssl
 from TwitterSearch import *
+import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
-import google_auth_oauthlib.flow
+from google.appengine.api import urlfetch
 
 
 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
@@ -53,30 +54,26 @@ class MapHandler(webapp2.RequestHandler):
         self.response.write('<html><body><img src=' + url + '></body></html>')
 
     def post(self):
-        os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+        api_key = 'AIzaSyBOrP8QroOlqPw0bdOFjhXnEKB0ITXRX4o'
+        search_name = self.request.get("map_name")
+        search_name = search_name.replace(" ", "_")
+        endpoint_url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q="+ search_name+"&safeSearch=strict&type=video&key="+ api_key
 
-        api_service_name = "youtube"
-        api_version = "v3"
-        client_secrets_file = "YOUR_CLIENT_SECRET_FILE.json"
 
-        # Get credentials and create an API client
-        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
-            client_secrets_file, scopes)
-        credentials = flow.run_console()
-        youtube = googleapiclient.discovery.build(
-            api_service_name, api_version, credentials=credentials)
+        response = urlfetch.fetch(endpoint_url)
+        content = response.content
 
-        request = youtube.search().list(
-            part="snippet",
-            maxResults=3,
-            q="surfing",
-            type="video",
-            videoEmbeddable="true"
-        )
-        response = request.execute()
+        response_as_json = json.loads(content)
+        print(response_as_json)
+        list_url = []
 
-        print(response)
-
+        for thing in response_as_json["items"]:
+            list_url.append(thing["id"]["videoId"])
+        template_var  = {
+            'list_url': list_url
+        }
+        result_template = the_jinja_env.get_template('templates/results2.html')
+        self.response.write(result_template.render(template_var))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),

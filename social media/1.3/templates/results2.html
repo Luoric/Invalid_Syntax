@@ -6,11 +6,8 @@
     <link rel="stylesheet" type = "text/css" href="style/style.css">
   </head>
   <body>
-    {% for tweet in tsts%}
-    <div class ='gifs'>
-    <p>{{tweet}}<p>
-    </div>
+    {% for url in list_url%}
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     {% endfor %}
-    <img src ={{url}}>
   </body>
 </html>
