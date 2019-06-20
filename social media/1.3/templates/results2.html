@@ -3,11 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>result</title>
-    <link rel="stylesheet" type = "text/css" href="style/style.css">
+    <link rel="stylesheet" type = "text/css" href="style/result.css">
   </head>
   <body>
-    {% for url in list_url%}
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class ='tweets'>
+      <h2>Tweets</h2>
+    {% for tweet in tsts%}
+    <p>{{tweet}}<p>
     {% endfor %}
+    </div>
+    <h2>Instagram Post</h2>
+    <img src ={{url}}>
+    <div class = 'vid'>
+    <h2>Youtube Videos</h2>
+    {% for url in list_url%}
+    <iframe class = 'video' width="560" height="315" src="https://www.youtube.com/embed/{{url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {% endfor %}
+  </div>
   </body>
 </html>

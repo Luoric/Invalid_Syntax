@@ -1,0 +1,17 @@
+<html>
+<html>
+  <head>
+    <title>A Meme</title>
+    <link rel="stylesheet" type = "text/css" href="style/style.css">
+  </head>
+<body>
+    {% for user in users%}
+    <div class="singleuser">
+      <br>
+      <h2 id="line1"> {{user.user_name}}</h2>
+      <h2 id="line2"> {{user.user_story}}</h2>
+      <h2> {{user.date_string}}</h2>
+    </div>
+    {% endfor %}
+</body>
+</html>

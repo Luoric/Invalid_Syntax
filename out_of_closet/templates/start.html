@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background-image:url("https://timedotcom.files.wordpress.com/2019/03/gettyimages-920723324-1.jpg");
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+.letsGo{
+  text-align: center;
+}
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+#title{
+  text-align: center;
+}
+</style>
+<body>
+
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    OOTC
+  </div>
+  <div class="w3-display-middle">
+    <h1 class="w3-jumbo w3-animate-top" id = 'title'>Need help getting out of the closet?</h1>
+    <hr class="w3-border-grey" style="margin:auto;width:40%;">
+    <br>
+    <form class = 'letsGo' method="post" action="/welcome">
+      <button class = 'button'>We are here to help</button>
+    </form>
+  </div>
+  <div class="w3-display-bottomleft w3-padding-large">
+
+  </div>
+</div>
+
+</body>
+</html>

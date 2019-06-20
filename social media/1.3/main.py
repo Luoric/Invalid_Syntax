@@ -69,7 +69,54 @@ class MapHandler(webapp2.RequestHandler):
 
         for thing in response_as_json["items"]:
             list_url.append(thing["id"]["videoId"])
+        name = self.request.get("map_name")
+        tuo = TwitterUserOrder(name)
+        ts = TwitterSearch(
+            consumer_key = 'dKu6bH3B6kzjjQx8SQOZix1zm',
+            consumer_secret = '0JeXDLbdGApPxoGc7X3KKDHfLSfz9nLtrfcnRNvMCQwW3MVYG1',
+            access_token = '3659983230-oAz1ASVWPfp9tA6rMKmLUy9KIbt01WEvqCwwf6z',
+            access_token_secret = 's4S30z2lb7TNy6UqULkfSnz1lJiAxvlaDTyECjFfIq27Z'
+         )
+
+        i = 5
+        tsts = []
+        if i > 0:
+            for tweet in ts.search_tweets_iterable(tuo):
+                result = tweet['user']['screen_name'] + tweet['text']
+                tsts.append(result)
+                print(tsts)
+                i = i -1
+                if i == 0:
+                    break
+                print(i)
+        r = requests.post(
+            'https://stevesie.com/cloud/api/v1/endpoints/3cd58c09-c547-481e-a011-180097f61f49/executions',
+            headers={
+                'Token': '04e4dc3c-481c-462f-875d-4e8202874ec7',
+            },
+            json={
+                'inputs': {
+                    'session_id': '2229053416%3AERftJLIFsesnIt%3A5',
+                    'username': name,
+                    'max_id': '',
+                },
+                'proxy': {
+                  'type': 'shared',
+                  'location': 'nyc3',
+                }
+            },
+        )
+
+        response_json = r.json()
+        img_url = response_json['object']['response']['response_text']
+        img_url = str(img_url)
+        json_acceptable_string = img_url.replace('''"''', "\"")
+        url = json.loads(json_acceptable_string)
+        url = url['items'][0]['image_versions2']['candidates'][0]['url']
+
         template_var  = {
+            'tsts': tsts,
+            'url' : url,
             'list_url': list_url
         }
         result_template = the_jinja_env.get_template('templates/results2.html')

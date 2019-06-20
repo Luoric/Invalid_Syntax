@@ -12,8 +12,16 @@ the_jinja_env = jinja2.Environment(
     autoescape=True)
 
 # the handler section
+class ShowStarter(webapp2.RequestHandler):
+    def get(self):  # for a get request
+        welcome_template = the_jinja_env.get_template('templates/start.html')
+        self.response.write(welcome_template.render())
+
 class EnterInfoHandler(webapp2.RequestHandler):
     def get(self):  # for a get request
+        welcome_template = the_jinja_env.get_template('templates/welcome.html')
+        self.response.write(welcome_template.render())
+    def post(self):  # for a get request
         welcome_template = the_jinja_env.get_template('templates/welcome.html')
         self.response.write(welcome_template.render())
 
@@ -70,7 +78,8 @@ class About(webapp2.RequestHandler):
         self.response.write(welcome_template.render())
 
 app = webapp2.WSGIApplication([
-    ('/', EnterInfoHandler),
+    ('/', ShowStarter),
+    ('/welcome', EnterInfoHandler),
     ('/memeresult', ShowMemeHandler),
     ('/library', ShowLibrary),
     ('/comingsoon', ComingSoon),

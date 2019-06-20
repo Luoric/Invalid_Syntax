@@ -49,14 +49,8 @@ class MapHandler(webapp2.RequestHandler):
 
     def post(self):
         try:
-            #tso = TwitterSearchOrder() # create a TwitterSearchOrder object
-            #tso.set_keywords(['Taylor']) # let's define all words we would like to have a look for
-            #tso.set_language('en') # we want to see German tweets only
-
-            #tso.set_include_entities(False) # and don't give us all those entity information
             name = self.request.get("map_name")
-            tuo = TwitterUserOrder(name) # create a TwitterUserOrder
-        # it's about time to create a TwitterSearch object with our secret tokens
+            tuo = TwitterUserOrder(name)
             ts = TwitterSearch(
                 consumer_key = 'dKu6bH3B6kzjjQx8SQOZix1zm',
                 consumer_secret = '0JeXDLbdGApPxoGc7X3KKDHfLSfz9nLtrfcnRNvMCQwW3MVYG1',
@@ -64,7 +58,6 @@ class MapHandler(webapp2.RequestHandler):
                 access_token_secret = 's4S30z2lb7TNy6UqULkfSnz1lJiAxvlaDTyECjFfIq27Z'
              )
 
-             # this is where the fun actually starts :)
             i = 3
             tsts = []
             if i > 0:
