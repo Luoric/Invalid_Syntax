@@ -1,0 +1,10 @@
+h1{
+  font-family: 'Roboto', sans-serif;
+}
+.clickableArea{
+  border : 1px solid grey;
+  background-color: black;
+  width: fit-content;
+  padding: 5px;
+  color: white;
+}
