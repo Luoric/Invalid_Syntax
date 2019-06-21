@@ -39,11 +39,19 @@ class ShowLibrary(webapp2.RequestHandler):
         library_template = the_jinja_env.get_template('templates/library.html')
 
         users = meme_model.User.query().fetch()
+        length = len(users)
+        print(length)
+        rpt = length/3
+        breaks = []
+        breaks2 = ["","","<br>"]
+        for i in range(rpt):
+            breaks.extend(breaks2)
 
         template_var  = {
-            'users': users
+            'users': users,
+            'breaks':breaks
         }
-
+        print(breaks)
         self.response.write(library_template.render(template_var))
 
 
@@ -59,14 +67,25 @@ class ShowMemeHandler(webapp2.RequestHandler):
     def post(self):
         results_template = the_jinja_env.get_template('templates/results.html')
         meme_line1 = self.request.get("userName")
+        if meme_line1 == '':
+            meme_line1 = "anonymous"
         meme_line2 = self.request.get("userStory")
         meme_date = strftime("%a, %d %b %Y", localtime())
         meme_date = str(meme_date)
+        meme_email = self.request.get("userEmail")
+
+        users = meme_model.User.query().fetch()
+        usercount = 1
+        for user in users:
+            usercount = usercount + 1
+        print(usercount)
 
         user = meme_model.User(
         user_name = meme_line1,
         user_story = meme_line2,
         date_string = meme_date,
+        user_email = meme_email,
+        user_count = usercount
         )
         dic = {
         'user_name': meme_line1,
@@ -111,7 +130,7 @@ class MapHandler(webapp2.RequestHandler):
         api_key = 'AIzaSyBOrP8QroOlqPw0bdOFjhXnEKB0ITXRX4o'
         search_name = self.request.get("map_name")
         search_name = search_name.replace(" ", "_")
-        endpoint_url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q="+ search_name+"&safeSearch=strict&type=video&key="+ api_key
+        endpoint_url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&order=relevance&q="+ search_name+"&safeSearch=strict&type=video&key="+ api_key
 
 
         response = urlfetch.fetch(endpoint_url)

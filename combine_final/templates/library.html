@@ -2,16 +2,25 @@
 <html>
   <head>
     <title>A Meme</title>
-    <link rel="stylesheet" type = "text/css" href="style/style.css">
+    <link rel="stylesheet" type = "text/css" href="style/library.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Oswald|Roboto&display=swap" rel="stylesheet">
   </head>
 <body>
-    {% for user in users%}
-    <div class="singleuser">
-      <br>
-      <h2 id="line1"> {{user.user_name}}</h2>
-      <h2 id="line2"> {{user.user_story}}</h2>
-      <h2> {{user.date_string}}</h2>
-    </div>
-    {% endfor %}
+<div class ='stuff'>
+{% for user in users%}
+  <div class="card shadow2">
+    <h2>{{user.user_name}}</h2>
+    <P>User's Story:</p>
+  <div class='story'>
+  <p>{{user.user_story}}</p>
+  <pre>
+Submitted on: {{user.date_string}}
+User's email: {{user.user_email}}</pre>
+  </div>
+</div>
+{% endfor %}
+</div>
+</div>
 </body>
 </html>
