@@ -130,17 +130,17 @@ class MapHandler(webapp2.RequestHandler):
         api_key = 'AIzaSyBOrP8QroOlqPw0bdOFjhXnEKB0ITXRX4o'
         search_name = self.request.get("map_name")
         search_name = search_name.replace(" ", "_")
-        endpoint_url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&order=relevance&q="+ search_name+"&safeSearch=strict&type=video&key="+ api_key
+        endpoint_url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&order=relevance&q="+ search_name+"&safeSearch=strict&type=video&key="+ api_key
 
 
         response = urlfetch.fetch(endpoint_url)
         content = response.content
 
-        response_as_json = json.loads(content)
-        print(response_as_json)
+        response_as_json1 = json.loads(content)
+        print(response_as_json1)
         list_url = []
 
-        for thing in response_as_json["items"]:
+        for thing in response_as_json1["items"]:
             list_url.append(thing["id"]["videoId"])
         name = self.request.get("map_name")
         tuo = TwitterUserOrder(name)
@@ -151,11 +151,11 @@ class MapHandler(webapp2.RequestHandler):
             access_token_secret = 's4S30z2lb7TNy6UqULkfSnz1lJiAxvlaDTyECjFfIq27Z'
          )
 
-        i = 5
+        i = 6
         tsts = []
         if i > 0:
             for tweet in ts.search_tweets_iterable(tuo):
-                result = tweet['user']['screen_name'] + tweet['text']
+                result = tweet['user']['screen_name'] + ": "+ tweet['text']
                 tsts.append(result)
                 print(tsts)
                 i = i -1
@@ -190,7 +190,7 @@ class MapHandler(webapp2.RequestHandler):
         template_var  = {
             'tsts': tsts,
             'url' : url,
-            'list_url': list_url
+            'list_url': list_url,
         }
         result_template = the_jinja_env.get_template('templates/results2.html')
         self.response.write(result_template.render(template_var))

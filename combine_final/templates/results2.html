@@ -2,20 +2,30 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>result</title>
+    <title>Pride!!</title>
+    <link rel="shortcut icon" href="https://i.gifer.com/embedded/download/D8mS.gif">
     <link rel="stylesheet" type = "text/css" href="style/haha.css">
   </head>
   <body>
-    <div class ='tweets'>
-      <h2>Tweets</h2>
+    <img class = 'twitter' src = 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/1259px-Twitter_Bird.svg.png'>
+    <div class ='stuff'>
     {% for tweet in tsts%}
-    <p>{{tweet}}<p>
+      <div class="card shadow2">
+        <div class ="twitter_logo">
+          <img class ='bird' src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/1259px-Twitter_Bird.svg.png">
+        </div>
+    <h2>{{tweet}}</h2>
+  </div>
     {% endfor %}
     </div>
-    <h2>Instagram Post</h2>
+    <div class = 'ig'>
+    <img class = 'instagram' src = 'https://regionalgwflow.iah.org/files/2018/11/instagram-png.png'>
+    <br>
     <img src ={{url}}>
+  </div>
     <div class = 'vid'>
-    <h2>Youtube Videos</h2>
+    <img class = 'youtube' src = "https://darkeandtaylor.co.uk/wp/wp-content/uploads/2018/09/youtube-logo-png-transparent-image-e1537456990695.png">
+    <br>
     {% for url in list_url%}
     <iframe class = 'video' width="560" height="315" src="https://www.youtube.com/embed/{{url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     {% endfor %}
